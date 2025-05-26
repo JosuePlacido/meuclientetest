@@ -1,4 +1,6 @@
 using System;
+using Application.DTO;
+using Newtonsoft.Json;
 
 namespace Api.Models
 {
@@ -11,10 +13,10 @@ namespace Api.Models
 		public CNPJ(string value)
 		{
 			if (string.IsNullOrWhiteSpace(value))
-				throw new ArgumentException("CNPJ cannot be null or empty.", nameof(value));
+				throw new ValidationException("CNPJ cannot be null or empty.", new ValidationError("cnpj", "CNPJ é um campo obrigatório"));
 
 			if (!IsValidCNPJ(value))
-				throw new ArgumentException("Invalid CNPJ format.", nameof(value));
+				throw new ValidationException("Invalid CNPJ format.", new ValidationError("cnpj", "CNPJ inválido"));
 
 			Value = value;
 		}
@@ -58,7 +60,5 @@ namespace Api.Models
 		{
 			return Value;
 		}
-
-
 	}
 }

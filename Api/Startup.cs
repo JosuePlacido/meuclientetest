@@ -31,6 +31,7 @@ namespace Api
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddDbContext<Context>(options =>
 				options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddServices();
 
 			services.AddSwaggerGen(c =>
 			{
@@ -53,7 +54,7 @@ namespace Api
 				app.UseHsts();
 			}
 
-			app.UseHttpsRedirection();
+			// app.UseHttpsRedirection();
 			app.UseMvc();
 
 			app.UseSwagger();
