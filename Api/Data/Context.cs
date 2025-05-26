@@ -22,7 +22,7 @@ namespace Api.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
-			SetPrefixColumnName(modelBuilder.Entity<Order>(), "tor_",
+			SetPrefixColumnName(modelBuilder.Entity<Order>(), "tor",
 				nameof(Order.Id), nameof(Order.ContractNumber),
 				nameof(Order.CreatedAt),
 				nameof(Order.Discount),
@@ -36,7 +36,7 @@ namespace Api.Data
 				entity.Property(o => o.Discount).HasDefaultValue(0);
 			});
 
-			SetPrefixColumnName(modelBuilder.Entity<ItemOrder>(), "tio_",
+			SetPrefixColumnName(modelBuilder.Entity<ItemOrder>(), "tio",
 				nameof(ItemOrder.Id), nameof(ItemOrder.AssetId),
 				nameof(ItemOrder.OrderId),
 				nameof(ItemOrder.Quantity),
@@ -47,11 +47,11 @@ namespace Api.Data
 			});
 
 
-			SetPrefixColumnName(modelBuilder.Entity<TypeAsset>(), "tta_",
+			SetPrefixColumnName(modelBuilder.Entity<TypeAsset>(), "tta",
 				nameof(TypeAsset.Id), nameof(TypeAsset.Code),
 				nameof(TypeAsset.Name));
 
-			SetPrefixColumnName(modelBuilder.Entity<Asset>(), "tas_",
+			SetPrefixColumnName(modelBuilder.Entity<Asset>(), "tas",
 				nameof(Asset.Id), nameof(Asset.Code), nameof(Asset.TypeAssetId),
 				nameof(Asset.Name), nameof(Asset.Price));
 			modelBuilder.Entity<Asset>(entity =>
@@ -59,7 +59,7 @@ namespace Api.Data
 				entity.HasOne(a => a.TypeAsset);
 			});
 
-			SetPrefixColumnName(modelBuilder.Entity<Supplier>(), "tsu_",
+			SetPrefixColumnName(modelBuilder.Entity<Supplier>(), "tsu",
 				nameof(Supplier.Id), nameof(Supplier.Code),
 				nameof(Supplier.Name));
 			modelBuilder.Entity<Supplier>(entity =>

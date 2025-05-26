@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace api.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250525023628_InitialCreate")]
+    [Migration("20250525232628_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,23 +25,23 @@ namespace api.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("tas__id");
+                        .HasColumnName("tas_id");
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnName("tas__code");
+                        .HasColumnName("tas_code");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("tas__name");
+                        .HasColumnName("tas_name");
 
                     b.Property<decimal>("Price")
-                        .HasColumnName("tas__price")
+                        .HasColumnName("tas_price")
                         .HasColumnType("Money");
 
                     b.Property<string>("TypeAssetId")
                         .IsRequired()
-                        .HasColumnName("tas__type_asset_id");
+                        .HasColumnName("tas_type_asset_id");
 
                     b.HasKey("Id");
 
@@ -54,21 +54,21 @@ namespace api.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("tio__id");
+                        .HasColumnName("tio_id");
 
                     b.Property<string>("AssetId")
                         .IsRequired()
-                        .HasColumnName("tio__asset_id");
+                        .HasColumnName("tio_asset_id");
 
                     b.Property<string>("OrderId")
                         .IsRequired()
-                        .HasColumnName("tio__order_id");
+                        .HasColumnName("tio_order_id");
 
                     b.Property<int>("Quantity")
-                        .HasColumnName("tio__quantity");
+                        .HasColumnName("tio_quantity");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnName("tio__unit_price")
+                        .HasColumnName("tio_unit_price")
                         .HasColumnType("Money");
 
                     b.HasKey("Id");
@@ -84,31 +84,31 @@ namespace api.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("tor__id");
+                        .HasColumnName("tor_id");
 
                     b.Property<string>("ContractNumber")
                         .IsRequired()
-                        .HasColumnName("tor__contract_number");
+                        .HasColumnName("tor_contract_number");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnName("tor__created_at");
+                        .HasColumnName("tor_created_at");
 
                     b.Property<decimal>("Discount")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("tor__discount")
+                        .HasColumnName("tor_discount")
                         .HasColumnType("Money")
                         .HasDefaultValue(0m);
 
                     b.Property<string>("SupplierId")
                         .IsRequired()
-                        .HasColumnName("tor__supplier_id");
+                        .HasColumnName("tor_supplier_id");
 
                     b.Property<decimal>("Total")
-                        .HasColumnName("tor__total")
+                        .HasColumnName("tor_total")
                         .HasColumnType("Money");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnName("tor__updated_at");
+                        .HasColumnName("tor_updated_at");
 
                     b.HasKey("Id");
 
@@ -121,7 +121,7 @@ namespace api.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("tsu__id");
+                        .HasColumnName("tsu_id");
 
                     b.Property<string>("CNPJ")
                         .IsRequired()
@@ -129,11 +129,11 @@ namespace api.Data.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnName("tsu__code");
+                        .HasColumnName("tsu_code");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("tsu__name");
+                        .HasColumnName("tsu_name");
 
                     b.HasKey("Id");
 
@@ -144,15 +144,15 @@ namespace api.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("tta__id");
+                        .HasColumnName("tta_id");
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnName("tta__code");
+                        .HasColumnName("tta_code");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("tta__name");
+                        .HasColumnName("tta_name");
 
                     b.HasKey("Id");
 
