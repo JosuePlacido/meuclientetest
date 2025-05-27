@@ -20,11 +20,11 @@ namespace Api.Services.SupplierCRUD
 	}
 	public class CreateSupplierDTO
 	{
-		[Required]
+		[Required(ErrorMessage = "O campo {0} é obrigatório.")]
 		public string Name { get; set; }
-		[Required]
+		[Required(ErrorMessage = "O campo {0} é obrigatório.")]
 		public string Code { get; set; }
-		[Required]
+		[Required(ErrorMessage = "O campo {0} é obrigatório.")]
 		public string CNPJ { get; set; }
 
 		public Supplier ToSuplier()

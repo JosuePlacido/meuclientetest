@@ -46,8 +46,8 @@ namespace Api.Services.SupplierCRUD
 			Supplier supplier = await _daoSupplier.GetById(id);
 			if (supplier == null)
 			{
-				throw new ValidationException("fornecedor não encontrado",
-					new ValidationError("id", "nenhum fornecedor encontrado com este id"));
+				throw new ValidationException("Fornecedor não encontrado",
+					new ValidationError("id", "nenhum Fornecedor encontrado com este id"));
 			}
 			_daoSupplier.Delete(supplier);
 			await _daoSupplier.Commit();
@@ -60,8 +60,8 @@ namespace Api.Services.SupplierCRUD
 			Supplier supplier = await _daoSupplier.GetById(id);
 			if (supplier == null)
 			{
-				throw new ValidationException("fornecedor não encontrado",
-					new ValidationError("id", "nenhum fornecedor encontrado com este id"));
+				throw new ValidationException("Fornecedor não encontrado",
+					new ValidationError("id", "nenhum Fornecedor encontrado com este id"));
 			}
 			supplier.Update(newValues.Name, newValues.Code);
 			supplier = _daoSupplier.Update(supplier);

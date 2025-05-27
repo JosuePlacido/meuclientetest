@@ -38,8 +38,8 @@ namespace Api.Services.TypeAssetCRUD
 			TypeAsset typeAsset = await _daoTypeAsset.GetById(id);
 			if (typeAsset == null)
 			{
-				throw new ValidationException("fornecedor não encontrado",
-					new ValidationError("id", "nenhum fornecedor encontrado com este id"));
+				throw new ValidationException("Tipo de Ativo não encontrado",
+					new ValidationError("id", "nenhum Tipo de Ativo encontrado com este id"));
 			}
 			_daoTypeAsset.Delete(typeAsset);
 			await _daoTypeAsset.Commit();
@@ -52,8 +52,8 @@ namespace Api.Services.TypeAssetCRUD
 			TypeAsset typeAsset = await _daoTypeAsset.GetById(id);
 			if (typeAsset == null)
 			{
-				throw new ValidationException("fornecedor não encontrado",
-					new ValidationError("id", "nenhum fornecedor encontrado com este id"));
+				throw new ValidationException("Tipo de Ativo não encontrado",
+					new ValidationError("id", "nenhum Tipo de Ativo encontrado com este id"));
 			}
 			typeAsset.Update(newValues.Name, newValues.Code);
 			typeAsset = _daoTypeAsset.Update(typeAsset);

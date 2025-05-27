@@ -28,7 +28,10 @@ namespace Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc(options =>
+			{
+				options.Filters.Add<ValidationExceptionFilter>();
+			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddDbContext<Context>(options =>
 				options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddServices();
