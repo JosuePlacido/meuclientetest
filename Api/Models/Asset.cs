@@ -7,10 +7,27 @@ namespace Api.Models
 	public class Asset : Item
 	{
 		[Required]
-		public string TypeAssetId { get; set; }
-		public TypeAsset TypeAsset { get; set; }
+		public string TypeAssetId { get; protected set; }
+		public TypeAsset TypeAsset { get; protected set; }
 		[Required]
 		[Column(TypeName = "Money")]
 		public decimal Price { get; set; }
+
+		public Asset(string name, string code, decimal price, string typeAssetId)
+		{
+			Name = name;
+			Code = code;
+			Price = price;
+			TypeAssetId = typeAssetId;
+			Price = price;
+		}
+
+		public void Update(string name, string code, decimal price, string typeAssetId)
+		{
+			Name = name;
+			Code = code;
+			Price = price;
+			TypeAssetId = typeAssetId;
+		}
 	}
 }
