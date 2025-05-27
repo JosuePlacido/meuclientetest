@@ -1,5 +1,6 @@
 using Api.DAL;
 using Api.Services.SupplierCRUD;
+using Api.Services.TypeAssetCRUD;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.Extensions
@@ -9,8 +10,10 @@ namespace Api.Extensions
 		public static IServiceCollection AddServices(this IServiceCollection services)
 		{
 			services.AddScoped<ISupplierService, SupplierService>();
-
 			services.AddScoped<IDAOSupplier, DAOSupplier>();
+
+			services.AddScoped<ITypeAssetService, TypeAssetService>();
+			services.AddScoped<IDAOTypeAsset, DAOTypeAsset>();
 
 			return services;
 		}

@@ -37,9 +37,9 @@ namespace Api.Models
 	public class Item : Entity
 	{
 		[Required]
-		public string Name { get; set; }
+		public string Name { get; protected set; }
 		[Required]
-		public string Code { get; set; }
+		public string Code { get; protected set; }
 
 		protected Item() { }
 	}
