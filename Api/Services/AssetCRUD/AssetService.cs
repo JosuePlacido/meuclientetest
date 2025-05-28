@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Api.DAL;
+using Api.DTO;
 using Api.Models;
 using Application.Exceptions;
 
@@ -39,6 +40,19 @@ namespace Api.Services.AssetCRUD
 		public async Task<Asset[]> GetAll()
 		{
 			return await _daoAsset.GetAll();
+		}
+
+		public async Task<PaginationDTO<Asset>> GetAllList(int page, int take)
+		{
+			if (page < 1)
+			{
+				page = 1;
+			}
+			if (take < 1 || take > 100)
+			{
+				take = 10;
+			}
+			return await _daoAsset.List(page, take);
 		}
 
 		public async Task<Asset> Remove(string id)

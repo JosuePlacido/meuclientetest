@@ -1,13 +1,17 @@
 using System;
 using System.Threading.Tasks;
+using Api.DTO;
 using Api.Models;
 using Api.Services.OrderCRUD;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-	[Route("api/contrato-venda")]
 	[ApiController]
+	[ApiVersion("1.0")]
+	[ApiVersion("2.0")]
+	[Route("api/v{version:apiVersion}/contrato-venda")]
+	[ApiExplorerSettings(GroupName = "Ativo")]
 	public class OrderController : ControllerBase
 	{
 		private readonly IOrderService _service;
@@ -15,10 +19,15 @@ namespace Api.Controllers
 		{
 			_service = service;
 		}
-		[HttpGet]
-		public async Task<ActionResult<ViewOrderItemListDTO[]>> GetAsync()
+		[HttpGet, MapToApiVersion("1.0")]
+		public async Task<ActionResult<ViewOrderItemListDTO[]>> GetV1Async()
 		{
 			return await _service.GetAll();
+		}
+		[HttpGet, MapToApiVersion("2.0")]
+		public async Task<ActionResult<PaginationDTO<ViewOrderDetailedDTO>>> GetV2Async(int page = 1, int take = 10)
+		{
+			return await _service.GetAllList(page, take);
 		}
 
 		[HttpGet("{id}")]

@@ -4,6 +4,7 @@ using Api.DAL;
 using Api.Models;
 using Application.Exceptions;
 using System;
+using Api.DTO;
 
 namespace Api.Services.OrderCRUD
 {
@@ -31,6 +32,25 @@ namespace Api.Services.OrderCRUD
 		{
 			var orders = await _daoOrder.GetAll();
 			return orders.Select(s => new ViewOrderItemListDTO(s)).ToArray();
+		}
+		public async Task<PaginationDTO<ViewOrderDetailedDTO>> GetAllList(int page, int take)
+		{
+			if (page < 1)
+			{
+				page = 1;
+			}
+			if (take < 1 || take > 100)
+			{
+				take = 10;
+			}
+			var result = await _daoOrder.List(page, take);
+			return new PaginationDTO<ViewOrderDetailedDTO>()
+			{
+				Page = result.Page,
+				Take = result.Take,
+				Total = result.Total,
+				Items = result.Items.Select(i => new ViewOrderDetailedDTO(i)).ToArray()
+			};
 		}
 
 		public async Task<ViewOrderDetailedDTO> Remove(string id)

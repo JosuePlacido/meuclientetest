@@ -1,4 +1,5 @@
 using Api.Data;
+using Api.DTO;
 using Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -19,6 +20,18 @@ namespace Api.DAL
 		public virtual async Task<T[]> GetAll()
 		{
 			return await _context.Set<T>().AsNoTracking().ToArrayAsync();
+		}
+		public virtual async Task<PaginationDTO<T>> List(int page, int take)
+		{
+			var query = _context.Set<T>().AsNoTracking();
+			PaginationDTO<T> result = new PaginationDTO<T>()
+			{
+				Items = await query.Skip((page - 1) * take).Take(take).ToArrayAsync(),
+				Total = await query.CountAsync(),
+				Page = page,
+				Take = take
+			};
+			return result;
 		}
 		public virtual async Task<T> GetById(string id)
 		{

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Api.Extensions;
 using Api.ActionFilters;
 using Swashbuckle.AspNetCore.Swagger;
@@ -30,6 +31,18 @@ namespace Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddApiVersioning(options =>
+			{
+				options.AssumeDefaultVersionWhenUnspecified = true;
+				options.DefaultApiVersion = new ApiVersion(1, 0);
+				options.ReportApiVersions = true;
+			});
+			services.AddMvcCore().AddVersionedApiExplorer(options =>
+			{
+				options.GroupNameFormat = "'v'VVV";
+				options.AssumeDefaultVersionWhenUnspecified = true;
+			});
+
 			services.AddMvc(options =>
 			{
 				options.Filters.Add<ValidationExceptionFilter>();
