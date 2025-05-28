@@ -1,5 +1,6 @@
 using Api.DAL;
 using Api.Services.AssetCRUD;
+using Api.Services.OrderCRUD;
 using Api.Services.SupplierCRUD;
 using Api.Services.TypeAssetCRUD;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,9 @@ namespace Api.Extensions
 
 			services.AddScoped<IAssetService, AssetService>();
 			services.AddScoped<IDAOAsset, DAOAsset>();
+
+			services.AddScoped<IOrderService, OrderService>();
+			services.AddScoped<IDAOOrder, DAOOrder>();
 
 			return services;
 		}

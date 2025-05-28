@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
+using Newtonsoft.Json;
 
 namespace Api.Models
 {
@@ -7,15 +9,21 @@ namespace Api.Models
 	public class ItemOrder : Entity
 	{
 		[Required]
-		public string AssetId { get; set; }
-		public Asset Asset { get; set; }
+		public string AssetId { get; private set; }
+		public Asset Asset { get; private set; }
 		[Required]
-		public int Quantity { get; set; }
+		public int Quantity { get; private set; }
 		[Required]
 		[Column(TypeName = "Money")]
-		public decimal UnitPrice { get; set; }
+		public decimal UnitPrice { get; private set; }
 		[Required]
-		public string OrderId { get; set; }
-		public Order Order { get; set; }
+		public string OrderId { get; private set; }
+
+		public ItemOrder(string assetId, int quantity, decimal unitPrice)
+		{
+			AssetId = assetId;
+			Quantity = quantity;
+			UnitPrice = unitPrice;
+		}
 	}
 }
