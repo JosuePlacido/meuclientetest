@@ -8,9 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Api.Extensions;
 using Api.ActionFilters;
-using Swashbuckle.AspNetCore.Swagger;
 using Api.Models;
-
 
 namespace Api
 {
@@ -54,18 +52,10 @@ namespace Api
 			services.AddDbContext<Context>(options =>
 				options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddServices();
-
-			services.AddSwaggerGen(c =>
-			{
-				c.SwaggerDoc("v1", new Info
-				{
-					Title = "MeuClientTest API",
-					Version = "v1"
-				});
-			});
+			services.AddVersionedSwagger();
 		}
 
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider)
 		{
 			if (env.IsDevelopment())
 			{
@@ -82,8 +72,12 @@ namespace Api
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
-				c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-				c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+				foreach (var description in provider.ApiVersionDescriptions)
+				{
+					c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+						$"MeuClientTest API {description.GroupName.ToUpperInvariant()}");
+				}
+				c.RoutePrefix = string.Empty; // Swagger UI na raiz
 			});
 		}
 	}
