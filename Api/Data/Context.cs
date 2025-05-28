@@ -31,8 +31,12 @@ namespace Api.Data
 				nameof(Order.UpdatedAt));
 			modelBuilder.Entity<Order>(entity =>
 			{
-				entity.HasMany(o => o.Items).WithOne(io => io.Order).HasForeignKey(io => io.OrderId);
+				entity.HasMany(o => o.Items);
 				entity.HasOne(o => o.Supplier);
+				entity.Property(o => o.CreatedAt)
+					.HasDefaultValueSql("CURRENT_TIMESTAMP").ValueGeneratedOnAdd();
+				entity.Property(o => o.UpdatedAt)
+					.HasDefaultValueSql("CURRENT_TIMESTAMP").ValueGeneratedOnAdd();
 				entity.Property(o => o.Discount).HasDefaultValue(0);
 			});
 
@@ -64,9 +68,13 @@ namespace Api.Data
 				nameof(Supplier.Name));
 			modelBuilder.Entity<Supplier>(entity =>
 			{
-				entity.Property(s => s.CNPJ).HasConversion(
+				entity.HasIndex(s => s.CNPJ)
+					.IsUnique();
+				entity.Property(s => s.CNPJ)
+				.HasConversion(
 					v => v.ToString(),
-					v => new CNPJ(v)).HasColumnName("tsu_cnpj");
+					v => new CNPJ(v))
+					.HasColumnName("tsu_cnpj");
 			});
 		}
 		private void SetPrefixColumnName<TEntity>(EntityTypeBuilder<TEntity> entity, string prefixo, params string[] propertyNames) where TEntity : class

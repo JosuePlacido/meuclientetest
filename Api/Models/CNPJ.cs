@@ -1,5 +1,5 @@
 using System;
-using Application.DTO;
+using Application.Exceptions;
 using Newtonsoft.Json;
 
 namespace Api.Models
@@ -59,6 +59,23 @@ namespace Api.Models
 		public override string ToString()
 		{
 			return Value;
+		}
+	}
+	public class CNPJSerialization : JsonConverter<CNPJ>
+	{
+		public override CNPJ ReadJson(JsonReader reader, Type objectType, CNPJ existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			var value = reader.Value?.ToString();
+
+			if (string.IsNullOrWhiteSpace(value))
+				return null;
+
+			return new CNPJ(value);
+		}
+
+		public override void WriteJson(JsonWriter writer, CNPJ value, JsonSerializer serializer)
+		{
+			writer.WriteValue(value.ToString());
 		}
 	}
 }

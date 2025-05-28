@@ -34,13 +34,13 @@ namespace Api.Models
 		}
 	}
 
-	public class Item : Entity
+	public class InternalScoped : Entity
 	{
 		[Required]
 		public string Name { get; protected set; }
 		[Required]
 		public string Code { get; protected set; }
 
-		protected Item() { }
+		protected InternalScoped() { }
 	}
 }

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Api.DAL;
 using Api.Models;
-using Application.DTO;
+using Application.Exceptions;
 
 namespace Api.Services.AssetCRUD
 {
@@ -43,12 +43,12 @@ namespace Api.Services.AssetCRUD
 
 		public async Task<Asset> Remove(string id)
 		{
-			Asset asset = await _daoAsset.GetById(id);
-			if (asset == null)
+			if (!await _daoAsset.Exists(id))
 			{
 				throw new ValidationException("Ativo não encontrado",
 					new ValidationError("id", "nenhum Ativo encontrado com este id"));
 			}
+			Asset asset = await _daoAsset.GetById(id);
 			_daoAsset.Delete(asset);
 			await _daoAsset.Commit();
 

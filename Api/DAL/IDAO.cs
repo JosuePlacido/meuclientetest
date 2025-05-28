@@ -9,6 +9,7 @@ namespace Api.DAL
 	{
 		Task<T[]> GetAll();
 		Task<T> GetById(string id);
+		Task<bool> Exists(string id);
 		Task<T> Add(T obj);
 		T Update(T obj);
 		T Delete(T obj);

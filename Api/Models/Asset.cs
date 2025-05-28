@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Api.Models
 {
 	[Table("tb_asset")]
-	public class Asset : Item
+	public class Asset : InternalScoped
 	{
 		[Required]
 		public string TypeAssetId { get; protected set; }

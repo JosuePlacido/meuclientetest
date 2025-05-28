@@ -14,7 +14,7 @@ namespace Api.Services.AssetCRUD
 		public string TypeAssetId { get; set; }
 		public TypeAsset TypeAsset { get; set; }
 	}
-	public class CreateAssetDTO
+	public class CreateAssetDTO : IValidatableObject
 	{
 		[Required(ErrorMessage = "O campo {0} é obrigatório.")]
 		public string Name { get; set; }
@@ -36,6 +36,14 @@ namespace Api.Services.AssetCRUD
 					"Tipo de ativo é um campo obrigatório",
 					new[] { nameof(TypeAssetId), nameof(TypeAsset) }
 				);
+			}
+			else if (!string.IsNullOrWhiteSpace(TypeAssetId) && TypeAsset != null)
+			{
+				yield return new ValidationResult(
+					"Tipo de ativo é unico",
+					new[] { nameof(TypeAssetId), nameof(TypeAsset) }
+				);
+
 			}
 		}
 

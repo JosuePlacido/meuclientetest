@@ -6,7 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Api.Extensions;
+using Api.ActionFilters;
 using Swashbuckle.AspNetCore.Swagger;
+using Api.Models;
 
 
 namespace Api
@@ -31,7 +33,11 @@ namespace Api
 			services.AddMvc(options =>
 			{
 				options.Filters.Add<ValidationExceptionFilter>();
-			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			}).AddJsonOptions(options =>
+			{
+				options.SerializerSettings.Converters.Add(new CNPJSerialization());
+			})
+			.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddDbContext<Context>(options =>
 				options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddServices();

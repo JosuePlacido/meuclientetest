@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Api.DAL;
 using Api.Models;
-using Application.DTO;
+using Application.Exceptions;
 
 namespace Api.Services.SupplierCRUD
 {
@@ -43,12 +43,12 @@ namespace Api.Services.SupplierCRUD
 
 		public async Task<ViewSupplierDTO> Remove(string id)
 		{
-			Supplier supplier = await _daoSupplier.GetById(id);
-			if (supplier == null)
+			if (!await _daoSupplier.Exists(id))
 			{
 				throw new ValidationException("Fornecedor não encontrado",
 					new ValidationError("id", "nenhum Fornecedor encontrado com este id"));
 			}
+			Supplier supplier = await _daoSupplier.GetById(id);
 			_daoSupplier.Delete(supplier);
 			await _daoSupplier.Commit();
 

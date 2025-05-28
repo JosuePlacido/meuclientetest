@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
 using Api.DAL;
 using Api.Models;
-using Api.Services.SupplierCRUD;
-using Application.DTO;
+using Application.Exceptions;
 
 namespace Api.Services.TypeAssetCRUD
 {
@@ -35,12 +34,12 @@ namespace Api.Services.TypeAssetCRUD
 
 		public async Task<TypeAsset> Remove(string id)
 		{
-			TypeAsset typeAsset = await _daoTypeAsset.GetById(id);
-			if (typeAsset == null)
+			if (!await _daoTypeAsset.Exists(id))
 			{
 				throw new ValidationException("Tipo de Ativo não encontrado",
 					new ValidationError("id", "nenhum Tipo de Ativo encontrado com este id"));
 			}
+			TypeAsset typeAsset = await _daoTypeAsset.GetById(id);
 			_daoTypeAsset.Delete(typeAsset);
 			await _daoTypeAsset.Commit();
 

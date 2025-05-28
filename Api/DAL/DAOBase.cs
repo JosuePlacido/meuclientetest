@@ -24,6 +24,10 @@ namespace Api.DAL
 		{
 			return await _context.Set<T>().FindAsync(id);
 		}
+		public virtual async Task<bool> Exists(string id)
+		{
+			return await _context.Set<T>().AnyAsync(i => i.Id == id);
+		}
 		public virtual async Task<T> Add(T obj)
 		{
 			await _context.Set<T>().AddAsync(obj);

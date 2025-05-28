@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace api.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,8 +40,8 @@ namespace api.Data.Migrations
                 {
                     tor_id = table.Column<string>(nullable: false),
                     tor_contract_number = table.Column<string>(nullable: false),
-                    tor_created_at = table.Column<DateTime>(nullable: false),
-                    tor_updated_at = table.Column<DateTime>(nullable: false),
+                    tor_created_at = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    tor_updated_at = table.Column<DateTime>(nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     tor_supplier_id = table.Column<string>(nullable: false),
                     tor_discount = table.Column<decimal>(type: "Money", nullable: false, defaultValue: 0m),
                     tor_total = table.Column<decimal>(type: "Money", nullable: false)
@@ -124,6 +124,12 @@ namespace api.Data.Migrations
                 name: "IX_tb_order_tor_supplier_id",
                 table: "tb_order",
                 column: "tor_supplier_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_supplier_tsu_cnpj",
+                table: "tb_supplier",
+                column: "tsu_cnpj",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

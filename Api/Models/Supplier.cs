@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Api.Models
 {
 	[Table("tb_supplier")]
-	public class Supplier : Item
+	public class Supplier : InternalScoped
 	{
 		[Required]
 		public CNPJ CNPJ { get; private set; }

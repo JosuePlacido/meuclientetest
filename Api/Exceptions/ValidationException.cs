@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Application.DTO
+namespace Application.Exceptions
 {
 	public class ValidationError
 	{

@@ -89,7 +89,9 @@ namespace api.Data.Migrations
                         .HasColumnName("tor_contract_number");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnName("tor_created_at");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("tor_created_at")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<decimal>("Discount")
                         .ValueGeneratedOnAdd()
@@ -106,7 +108,9 @@ namespace api.Data.Migrations
                         .HasColumnType("Money");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnName("tor_updated_at");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("tor_updated_at")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
 
@@ -134,6 +138,9 @@ namespace api.Data.Migrations
                         .HasColumnName("tsu_name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CNPJ")
+                        .IsUnique();
 
                     b.ToTable("tb_supplier");
                 });
@@ -172,7 +179,7 @@ namespace api.Data.Migrations
                         .HasForeignKey("AssetId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Api.Models.Order", "Order")
+                    b.HasOne("Api.Models.Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
