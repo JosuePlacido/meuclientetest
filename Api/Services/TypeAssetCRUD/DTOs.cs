@@ -11,9 +11,9 @@ namespace Api.Services.TypeAssetCRUD
 	public class CreateTypeAssetDTO
 	{
 		[Required(ErrorMessage = "O campo {0} é obrigatório.")]
-		public string Name { get; protected set; }
+		public string Name { get; set; }
 		[Required(ErrorMessage = "O campo {0} é obrigatório.")]
-		public string Code { get; protected set; }
+		public string Code { get; set; }
 
 		public TypeAsset ToTypeAsset()
 		{
