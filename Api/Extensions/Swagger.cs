@@ -43,13 +43,6 @@ namespace Api.Extensions
 		public void Apply(Operation operation, OperationFilterContext context)
 		{
 			var controllerName = context.ApiDescription.ActionDescriptor.RouteValues["controller"];
-
-			if (controllerName == "Asset")
-			{
-				// Remove a tag padrão
-				// operation.Tags.Clear();
-				// Adiciona a tag desejada
-			}
 			operation.Tags[0] = Tags[controllerName];
 		}
 	}
@@ -61,7 +54,6 @@ namespace Api.Extensions
 
 			foreach (var (key, value) in swaggerDoc.Paths)
 			{
-				// Substitui "v{version}" pela versão da API que está no swaggerDoc.Info.Version
 				var newKey = key.Replace("v{version}", swaggerDoc.Info.Version);
 
 				newPaths.Add(newKey, value);
@@ -74,7 +66,7 @@ namespace Api.Extensions
 	{
 		public void Apply(Operation operation, OperationFilterContext context)
 		{
-			var versionParameter = operation.Parameters?.FirstOrDefault(p => p.Name == "version");
+			var versionParameter = operation.Parameters?.FirstOrDefault(p => p.Name == "version" || p.Name == "api-version");
 			if (versionParameter != null)
 				operation.Parameters.Remove(versionParameter);
 		}
